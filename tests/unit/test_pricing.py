@@ -30,7 +30,32 @@ def test_quote_panier_vide():
 
 # TODO Atelier 1 :
 #  - remise volume à partir de 10 unités (et pas à 9 !)
+def test_ligne_total_avec_remise_partir_de_10():
+    """Une remise est appliqué à partir de 10 unités."""
+    assert line_total(Decimal("10"), 9) == Decimal("90")
+    assert line_total(Decimal("10"), 10) == Decimal("95")
+
+
 #  - quantités invalides (0, 100, -1, "2", True) -> ValueError   (astuce : @pytest.mark.parametrize)
+@pytest.mark.parametrize("qty", [0, -1, 100, "2", True])
+def test_quantite_invalide(qty):
+    with pytest.raises(ValueError):
+        line_total(Decimal("10"), qty)
+
+
 #  - coupons WELCOME10 / FIXED5 / FREESHIP (seuils inclus/exclus), coupon inconnu, casse
 #  - livraison offerte à partir de 50 € APRÈS remise
 #  - produit inconnu -> KeyError
+
+
+# Test volontaire du linter Ruff
+# Cette variable est déclarée mais jamais utilisée.
+# Ruff doit détecter l'erreur F841.
+
+
+# Test volontaire du linter Ruff pour vérifier que Ruff détecte une variable inutilisée (F841).
+# À réactiver pour tester l'échec du pipeline CI l'erreur F841.
+
+# def test_erreur_style():
+#     prix = 10  # Variable inutilisée
+#     assert True
